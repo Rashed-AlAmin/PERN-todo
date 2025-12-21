@@ -1,7 +1,12 @@
 import React, { Fragment,useEffect,useState} from 'react'
+import InputTodo from './inputTodo'
+import EditTodo from './EditTodo'
 
 const ListTodos=()=>{
     const [todos,setTodos]=useState([])
+    const addTodo=(newTodo)=>{
+      setTodos([...todos,newTodo])
+    }
     //delete function
     const deleteTodo=async(id)=>{
         try {
@@ -27,7 +32,8 @@ const ListTodos=()=>{
     },[])
     
     return <Fragment>
-        <table className="table mt-5 text-center">
+    <InputTodo onAdd={addTodo}/>
+    <table className="table mt-5 text-center">
     <thead>
       <tr>
         <th>Description</th>
@@ -39,7 +45,7 @@ const ListTodos=()=>{
       {todos.map(todo=>(
         <tr key={todo.todo_id}>
           <td>{todo.description}</td>
-          <td>Edit</td>
+          <td><EditTodo/></td>
           <td><button className='btn btn-danger'
           onClick={()=>{deleteTodo(todo.todo_id)}}
           >Delete</button></td>

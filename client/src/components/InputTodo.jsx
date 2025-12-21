@@ -1,10 +1,10 @@
 import React,{Fragment,useState} from "react";
 
-const InputTodo=()=>{
+const InputTodo=({onAdd})=>{
     const [description,setDescription]=useState("")
-
     const onSubmitForm=async(e)=>{
         e.preventDefault()
+        if(!description.trim()) return;
         try {
             const body= {description}
             const response= await fetch("http://localhost:5000/todos",{
@@ -12,10 +12,10 @@ const InputTodo=()=>{
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(body)
             })
-            const data=await response.json()
-            console.log(data)
+            const newTodo=await response.json()
             setDescription("")
-            window.location("/")
+           // window.location="/"               //refreshes the page
+            onAdd(newTodo)
         } catch (err) {
             console.error(err.message)
         }
