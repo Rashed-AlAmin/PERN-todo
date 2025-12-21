@@ -15,6 +15,7 @@ const InputTodo=()=>{
             const data=await response.json()
             console.log(data)
             setDescription("")
+            window.location("/")
         } catch (err) {
             console.error(err.message)
         }
